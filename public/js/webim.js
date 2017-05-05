@@ -86,6 +86,10 @@ var webim = {
       +'</div>'
 
       +'<div class="col-xs-11">'
+      +'<div class="col-xs-12">'
+      +'<div class="username pull-right">'+this.data.info.name+'</div>'
+      +'<div>'
+      +'<div class="col-xs-12 no-padding">'
       +'<div class="msg pull-right">'+msg+'</div>'
       +'</div>'
       +'</div>';
@@ -96,6 +100,28 @@ var webim = {
     this.scrollBottom();
 
     text.val('');
+  },
+  newMessage : function(data) {
+    this.appendUser(data.user.name, data.user.avatar, data.user.fd);
+    var html = '<div class="col-xs-10 msg-item ">'
+      +'<div class="col-xs-1 no-padding">'
+      +'<div class="avatar">'
+      +'<img src="'+data.user.avatar+'" width="50" height="50" class="img-circle">'
+      +'</div>'
+      +'</div>'
+
+      +'<div class="col-xs-11 no-padding">'
+      +'<div class="col-xs-12">'
+      +'<div class="username">'+data.user.name+'</div>'
+      +'</div>'
+      +'<div class="col-xs-12 no-padding">'
+      +'<div class="msg">'+data.message+'</div>'
+      +'</div>'
+      +'</div>'
+      +'</div>';
+
+    $('.chat-list').append(html);
+    this.scrollBottom();
   },
   scrollBottom : function() {
     $('.chat-list').scrollTop($('.chat-list')[0].scrollHeight );
@@ -119,23 +145,6 @@ var webim = {
 
     $(".user-list").append(html);
     $('.user-list').scrollTop($('.user-list')[0].scrollHeight );
-  },
-  newMessage : function(data) {
-    this.appendUser(data.user.name, data.user.avatar, data.user.fd);
-    var html = '<div class="col-xs-10 msg-item ">'
-      +'<div class="col-xs-1 no-padding">'
-      +'<div class="avatar">'
-      +'<img src="'+data.user.avatar+'" width="50" height="50" class="img-circle">'
-      +'</div>'
-      +'</div>'
-
-      +'<div class="col-xs-11 no-padding">'
-      +'<div class="msg">'+data.message+'</div>'
-      +'</div>'
-      +'</div>';
-
-    $('.chat-list').append(html);
-    this.scrollBottom();
   },
   layerSuccessMsg : function(msg) {
     layer.msg(msg, {time: 1000, icon:6});

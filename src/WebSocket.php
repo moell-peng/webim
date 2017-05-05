@@ -93,6 +93,7 @@ class WebSocket
     private function pushMessage(Server $server, $message, $messageType, $frameFd)
     {
         $message = htmlspecialchars($message);
+        $datetime = date('Y-m-d H:i:s', time());
         $user = $this->table->get($frameFd);
         foreach ($this->table as $row) {
             if ($frameFd == $row['fd']) {
@@ -101,6 +102,7 @@ class WebSocket
             $server->push($row['fd'], json_encode([
                     'type' => $messageType,
                     'message' => $message,
+                    'datetime' => $datetime,
                     'user' => $user
                 ])
             );
