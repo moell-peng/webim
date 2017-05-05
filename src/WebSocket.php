@@ -40,7 +40,7 @@ class WebSocket
     {
         $user = [
             'fd' => $request->fd,
-            'name' => '连接'.$request->fd,
+            'name' => $this->config['webim']['name'][array_rand($this->config['webim']['name'])].$request->fd,
             'avatar' => $this->config['webim']['avatar'][array_rand($this->config['webim']['avatar'])]
         ];
         $this->table->set($request->fd, $user);
@@ -49,7 +49,7 @@ class WebSocket
                 array_merge(['user' => $user], ['all' => $this->allUser()], ['type' => 'openSuccess'])
             )
         );
-        $this->pushMessage($server, "欢迎".$request->fd."进入聊天室", 'open', $request->fd);
+        $this->pushMessage($server, "欢迎".$user['name']."进入聊天室", 'open', $request->fd);
     }
 
     private function allUser()
@@ -77,7 +77,8 @@ class WebSocket
      */
     public function close(Server $server, $fd)
     {
-        $this->pushMessage($server, $fd."离开聊天室", 'close', $fd);
+        $user = $this->table->get($fd);
+        $this->pushMessage($server, $user['name']."离开聊天室", 'close', $fd);
         $this->table->del($fd);
     }
 
@@ -91,6 +92,7 @@ class WebSocket
      */
     private function pushMessage(Server $server, $message, $messageType, $frameFd)
     {
+        $message = htmlspecialchars($message);
         $user = $this->table->get($frameFd);
         foreach ($this->table as $row) {
             if ($frameFd == $row['fd']) {

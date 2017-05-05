@@ -41,6 +41,7 @@ var webim = {
           webim.notice(data.message);
           break;
         case 'close':
+          webim.removeUser(data.user.fd);
           webim.notice(data.message);
           break;
         case 'openSuccess':
@@ -57,6 +58,9 @@ var webim = {
     this.data.wsServer.onerror = function (evt, e) {
       console.log('Error occured: ' + evt.data);
     };
+  },
+  removeUser: function(fd) {
+    $(".fd-"+fd).remove();
   },
   showAllUser: function(users) {
     for (i in users) {

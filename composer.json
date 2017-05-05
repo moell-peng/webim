@@ -1,5 +1,5 @@
 {
-    "name": "moell/swoole-webim",
+    "name": "moell/webim",
     "type": "project",
     "license": "MIT",
     "authors": [
@@ -14,12 +14,6 @@
     "autoload": {
         "psr-4": {
             "WebIM\\": "src/"
-        }
-    },
-    "repositories": {
-        "packagist": {
-            "type": "composer",
-            "url": "https://packagist.phpcomposer.com"
         }
     },
     "require-dev": {
