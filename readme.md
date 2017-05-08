@@ -7,7 +7,7 @@ PHP + Swoole 开发的简单聊天室demo, 主要是 websockt 的应用, 如果�
 * composer
 ## 安装
 ```
-composer create-project moell/webim
+composer create-project -s dev moell/webim
 ```
 or
 ```
